@@ -66,7 +66,7 @@ WebReverse MCP 是一个基于 Android 的专业浏览器、网页分析器、Ja
 
 - 传输方式：Streamable HTTP（`POST /mcp`）
 - 协议：JSON-RPC 2.0，兼容 MCP 2025-03-26 规范
-- 435 Tools / 24 个工具族（Browser / Tab / DOM / JavaScript / Debugger / Network / Hook / Storage / Page / Reverse Engineering / Evidence / Graph / Pipeline / Frame / Worker / Performance / Event / Workspace / File System / MCP / System 等）
+- 461 Tools / 40 个工具族（Browser / Tab / DOM / JavaScript / Debugger / Network / Hook / Storage / Page / Reverse Engineering / Evidence / Graph / Pipeline / Frame / Worker / Performance / Event / Workspace / File System / MCP / System 等）
 - 12 Resources + 2 资源模板：`browser://current-page`、`browser://dom`、`browser://network`、`browser://page/{tabId}` 等
 - 13 Prompts：`analyze_page`、`analyze_login_flow`、`trace_function`、`evidence_workflow`（证据驱动工作流）等
 
@@ -122,7 +122,7 @@ WebReverse MCP 是一个基于 Android 的专业浏览器、网页分析器、Ja
 │                    MCP Server (Ktor)                        │
 │                Streamable HTTP  POST /mcp                   │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │           ToolRegistry (435 Tools)                   │  │
+│  │           ToolRegistry (461 Tools)                   │  │
 │  │  Browser│Tab│DOM│JS│Debugger│Network│Hook│Storage   │  │
 │  │  Page│ReverseEngineering│Frame│Worker│Performance   │  │
 │  │  Event│Workspace│MCP│System│File System            │  │
@@ -200,7 +200,7 @@ WebReverseMCP/
 │   └── hook-engine/            # HookEngine（规则生命周期）
 ├── mcp/
 │   ├── mcp-server/             # Ktor Server + McpServerManager + QR
-│   ├── mcp-tools/              # 400+ Tools（24 分类，含 File System 文件系统）
+│   ├── mcp-tools/              # 400+ Tools（40 分类，含 File System 文件系统）
 │   ├── mcp-resources/          # 12 个 browser:// 资源
 │   └── mcp-prompts/            # 13 个内置 Prompt
 ├── workspace/
@@ -350,7 +350,7 @@ http://<Android-IP>:8787/mcp
 - 22 个权限作用域（READ_PAGE / EXECUTE_JS / READ_NETWORK / MODIFY_NETWORK / INSTALL_HOOK / READ_FILE / WRITE_FILE 等）
 - 4 档授权范围：一次 / 当前网站 / 当前 Tab / 永久
 - 敏感数据默认脱敏：`[REDACTED_COOKIE]` / `[REDACTED_TOKEN]` / `[REDACTED_SECRET]`
-- 认证：API Token + 配对码 + QR 配对 + IP Allowlist + 仅局域网模式
+- 认证：API Token + IP Allowlist + 仅局域网模式
 
 ---
 
