@@ -565,7 +565,7 @@ fun SettingsScreen(
                         )
                         ListItem(
                             headlineContent = { Text("MCP 认证") },
-                            supportingContent = { Text("API Token + 配对码 + 仅局域网，默认开启") },
+                            supportingContent = { Text("API Token + 仅局域网，默认开启") },
                             leadingContent = {
                                 Icon(Icons.Filled.Security, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             },

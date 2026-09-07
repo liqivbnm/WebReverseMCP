@@ -217,7 +217,7 @@ fun HomeScreen(
                         FeatureRow("调试器", "断点、Watch、调用栈、作用域")
                         FeatureRow("Hook 引擎", "Function / Fetch / XHR / WebSocket / Storage Hook")
                         FeatureRow("MCP Server", "固定 Streamable HTTP，连接 AI Agent")
-                        FeatureRow("安全模型", "权限作用域、敏感数据脱敏、配对认证")
+                        FeatureRow("安全模型", "权限作用域、敏感数据脱敏、Token 认证")
                     }
                 }
             }
