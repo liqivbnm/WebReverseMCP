@@ -199,7 +199,7 @@ WebReverseMCP/
 ├── hook/
 │   └── hook-engine/            # HookEngine（规则生命周期）
 ├── mcp/
-│   ├── mcp-server/             # Ktor Server + McpServerManager + QR
+│   ├── mcp-server/             # Ktor Server + McpServerManager
 │   ├── mcp-tools/              # 400+ Tools（40 分类，含 File System 文件系统）
 │   ├── mcp-resources/          # 12 个 browser:// 资源
 │   └── mcp-prompts/            # 13 个内置 Prompt
