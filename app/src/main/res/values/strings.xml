@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WebReverse MCP</string>
+    <string name="app_description">AI 驱动的网页调试与逆向分析工作台</string>
+    <string name="mcp_server_running">MCP Server 运行中</string>
+    <string name="mcp_server_stopped">MCP Server 已停止</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 浏览器 + 调试节点 图标 -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M54,30 L78,54 L54,78 L30,54 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,42 L66,54 L54,66 L42,54 Z" />
+    <path
+        android:fillColor="#FFB74D"
+        android:pathData="M54,18 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M54,90 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#E57373"
+        android:pathData="M18,54 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#BA68C8"
+        android:pathData="M90,54 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+</vector>

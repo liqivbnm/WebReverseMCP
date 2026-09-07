@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>wabt-offscreen</title></head>
+<body>
+<script src="wabt.js"></script>
+<script>
+(function () {
+  var api = null;
+  globalThis.__WRMCP_WABT_STATE__ = 'loading';
+
+  WabtModule().then(function (w) {
+    api = w;
+    globalThis.__WRMCP_WABT_STATE__ = 'ready';
+  }).catch(function (e) {
+    globalThis.__WRMCP_WABT_STATE__ = 'error:' + String(e && e.message || e);
+  });
+
+  // ---- 输入累加器（Kotlin 侧分块推送，规避 evaluateJavascript 大脚本限制）----
+  globalThis.__wrInReset = function () { globalThis.__WR_WABT_IN__ = ''; return true; };
+  globalThis.__wrInAppend = function (chunk) {
+    globalThis.__WR_WABT_IN__ = (globalThis.__WR_WABT_IN__ || '') + chunk;
+    return globalThis.__WR_WABT_IN__.length;
+  };
+
+  // ---- 任务 1：wasm -> wat（指令级反汇编）----
+  globalThis.__wrWasm2WatStart = function (fold) {
+    globalThis.__WR_J1__ = 'running';
+    globalThis.__WR_J1R__ = '';
+    globalThis.__WR_J1E__ = '';
+    try {
+      var b64 = globalThis.__WR_WABT_IN__ || '';
+      var bin = Uint8Array.from(atob(b64), function (c) { return c.charCodeAt(0); });
+      var m = api.readWasm(bin, { readDebugNames: true, check: true });
+      var out;
+      try {
+        try { m.generateNames(); m.applyNames(); } catch (e) { /* 无 name section 时忽略 */ }
+        out = m.toText({ foldExprs: !!fold, inlineExport: false });
+      } finally { try { m.destroy(); } catch (e) {} }
+      globalThis.__WR_J1R__ = out;
+      globalThis.__WR_J1__ = 'done';
+    } catch (e) {
+      globalThis.__WR_J1E__ = String(e && e.message || e);
+      globalThis.__WR_J1__ = 'error';
+    }
+  };
+
+  // ---- 任务 2：wat -> wasm（补丁重编译）----
+  globalThis.__wrWat2WasmStart = function () {
+    globalThis.__WR_J2__ = 'running';
+    globalThis.__WR_J2R__ = '';
+    globalThis.__WR_J2E__ = '';
+    try {
+      var m = api.parseWat('patch.wat', globalThis.__WR_WABT_IN__ || '', {});
+      var out;
+      try {
+        m.resolveNames();
+        var r = m.toBinary({ write_debug_names: true });
+        out = r.buffer;
+      } finally { try { m.destroy(); } catch (e) {} }
+      var s = '';
+      for (var i = 0; i < out.length; i += 0x8000) {
+        s += String.fromCharCode.apply(null, out.subarray(i, Math.min(i + 0x8000, out.length)));
+      }
+      globalThis.__WR_J2R__ = btoa(s);
+      globalThis.__WR_J2__ = 'done';
+    } catch (e) {
+      globalThis.__WR_J2E__ = String(e && e.message || e);
+      globalThis.__WR_J2__ = 'error';
+    }
+  };
+
+  // ---- 通用结果分块读取 ----
+  globalThis.__wrResultLen = function (job) {
+    return (job === 1 ? globalThis.__WR_J1R__ : globalThis.__WR_J2R__ || '').length;
+  };
+  globalThis.__wrResultChunk = function (job, off, len) {
+    var s = job === 1 ? globalThis.__WR_J1R__ : globalThis.__WR_J2R__;
+    if (!s) return '';
+    return s.substr(off, len);
+  };
+  globalThis.__wrState = function (job) {
+    return job === 1 ? globalThis.__WR_J1__ : globalThis.__WR_J2__;
+  };
+  globalThis.__wrError = function (job) {
+    return job === 1 ? globalThis.__WR_J1E__ : globalThis.__WR_J2E__;
+  };
+})();
+</script>
+</body>
+</html>

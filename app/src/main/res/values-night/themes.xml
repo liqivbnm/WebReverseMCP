@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 深色主题：修复深色模式下启动/后台窗口背景闪白、系统栏图标颜色反转 -->
+<resources>
+    <style name="Theme.WebReverseMCP" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#0B1B2B</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>
